@@ -297,7 +297,8 @@ body {
         b.setAttribute("aria-label", "Open bigger: " + p.cap);
         var tilt = TILTS[count % TILTS.length] * (span > 1 ? 0.45 : 1);
         b.style.setProperty("--tilt", tilt + "deg");
-        b.innerHTML = '<span class="pin"></span><img loading="lazy" src="img/' + p.f + '.jpg" alt=""><span class="cap"></span>';
+        // FIXED: Removed "img/" from the src path
+        b.innerHTML = '<span class="pin"></span><img loading="lazy" src="' + p.f + '.jpg" alt=""><span class="cap"></span>';
         b.querySelector("img").alt = p.alt;
         b.querySelector(".cap").textContent = p.cap;
         b.addEventListener("click", function () { openLb(p, b); });
@@ -312,7 +313,8 @@ body {
 
   // lightbox
   var lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img"), lbClose = document.getElementById("lb-close"), lastBtn = null;
-  function openLb(p, btn) { lastBtn = btn; lbImg.src = "img/" + p.f + ".jpg"; lbImg.alt = p.alt; lb.hidden = false; lbClose.focus(); }
+  // FIXED: Removed "img/" from the lightbox src path
+  function openLb(p, btn) { lastBtn = btn; lbImg.src = p.f + ".jpg"; lbImg.alt = p.alt; lb.hidden = false; lbClose.focus(); }
   function closeLb() { lb.hidden = true; if (lastBtn) lastBtn.focus(); }
   lb.addEventListener("click", closeLb);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
